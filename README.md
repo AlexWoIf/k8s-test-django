@@ -55,7 +55,7 @@ $ docker compose build web
 
 Аналогичным образом можно удалять библиотеки из зависимостей.
 
-## <a id='environments>Переменные окружения</a>
+## <a id='environments'>Переменные окружения</a>
 
 Образ с Django считывает настройки из переменных окружения:
 
@@ -100,7 +100,7 @@ minikube image ls
 
 Если хотите использовать свой image, откройте файл `kubernetes/django-service.yml` и измените значение `image: docker.io/library/jango_app:latest` на адрес нужного на docker hub или где-либо еще (возможно придется удалить или закомментировать строку `imagePullPolicy: Never`).
 
-Откройте `cubernetes/configmap.yml` и укажите нужные значения для Django. Назначение переменных описано в разделе [Переменные окружения](#environment)
+Откройте `cubernetes/configmap.yml` и укажите нужные значения для Django. Назначение переменных описано в разделе [Переменные окружения](#environments)
 
 Регистрируем конфиг и поднимаем Django:
 
