@@ -129,3 +129,9 @@ kubectl.exe apply -f https://projectcontour.io/quickstart/contour.yaml
 ```sh
 kubectl.exe apply -f kubernetes/ingress-hosts.yaml
 ```
+
+Создайте периодическую задачу для удаления сессий из БД командой:
+
+```sh
+kubectl.exe apply -f kubernetes/clearsession.yaml
+```
