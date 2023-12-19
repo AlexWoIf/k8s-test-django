@@ -83,7 +83,7 @@ $ docker compose build web
 minikube start
 ```
 
-Как правило minikube по умолчанию выбирает нужный драйвер, но если возникнут проблемы, можно указать его явно через аргумент, например: `--vm-driver=virtualbox`.
+Как правило minikube по умолчанию выбирает нужный драйвер, но если возникнут проблемы, можно указать его явно через аргумент, например: `--driver=virtualbox` или `--driver=docker`.
 
 Первый запуск займёт чуть больше времени чем последующие. Проверьте корректность утановки следующей командой:
 
@@ -92,13 +92,20 @@ kubectl cluster-info
 ```
 
 ## Настройка и запуск Django
-При развёртывании будет использоваться image с Django созданный при [развертывании с помощью `docker compose`](#run-with-docker-compose). Название образа должно быть `docker.io/library/nginx:latest`. Убедитесь что он присутствует в списке доступных образов командой:
+
+Создайте образ контейнера командой
+
+```sh
+minikube image build ./backend_main_django/ -t jango_app
+```
+
+Убедитесь что он присутствует в списке доступных образов командой:
 
 ```sh
 minikube image ls
 ```
 
-Если хотите использовать свой image, откройте файл `kubernetes/django-service.yml` и измените значение `image: docker.io/library/jango_app:latest` на адрес нужного на docker hub или где-либо еще (возможно придется удалить или закомментировать строку `imagePullPolicy: Never`).
+Если хотите использовать другой image, откройте файл `kubernetes/django-service.yml` и измените значение `image: docker.io/library/jango_app:latest` на адрес нужного на docker hub или где-либо еще (возможно придется удалить или закомментировать строку `imagePullPolicy: Never`).
 
 Откройте `cubernetes/configmap.yml` и укажите нужные значения для Django. Назначение переменных описано в разделе [Переменные окружения](#environments)
 
@@ -106,7 +113,19 @@ minikube image ls
 
 ```sh
 kubectl apply -f kubernetes/configmap.yml
-kubectl apply -f kubernetes/django-service.yml
+kubectl apply -f kubernetes/deployment-django-ver1.yaml
 ```
 
-Обратите внимание что в одном файле `kubernetes/django-service.yml` создаётся сразу Deployment и Service для нашего приложения.
+Обратите внимание что в одном файле `kubernetes/deployment-django-ver1.yaml` создаётся сразу Deployment и Service для нашего приложения.
+
+Для доступа с использованием доменного имени у вас должен быть запущен любой [ингресс контроллер](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/). Например для запуска ингресс контроллера [Contour](https://projectcontour.io/) команда запуска будет выглядеть так:
+
+```sh
+kubectl.exe apply -f https://projectcontour.io/quickstart/contour.yaml
+```
+
+Если ингресс контроллер уже запущен, то  примените манифест с правилами обработки входящих запросов:
+
+```sh
+kubectl.exe apply -f kubernetes/ingress-hosts.yaml
+```
