@@ -135,3 +135,11 @@ kubectl.exe apply -f kubernetes/ingress-hosts.yaml
 ```sh
 kubectl.exe apply -f kubernetes/clearsession.yaml
 ```
+
+По умолчанию она запускается каждую минуту (schedule: "* * * * *"). Отредактируйте интервалы [CRON-выражения](https://ru.wikipedia.org/wiki/Cron) согласно стандартной нотации вашим требованиям.
+
+При необходимости применить миграции, используйте команду:
+
+```sh
+kubectl.exe apply -f kubernetes/migrate.yaml
+```

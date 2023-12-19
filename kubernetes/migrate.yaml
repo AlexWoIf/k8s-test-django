@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: django-app
+        image: docker.io/library/django_app:latest
+        imagePullPolicy: Never
+        envFrom:
+          - configMapRef:
+              name: django-config
+        command: ['python', 'manage.py', 'migrate', '--noinput']
