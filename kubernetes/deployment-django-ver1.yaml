@@ -16,20 +16,9 @@ spec:
         image: docker.io/library/django_app:latest
         imagePullPolicy: Never
         envFrom:
-          - configMapRef:
-              name: django-config
+        - configMapRef:
+            name: django-config
+        - secretRef:
+            name: django-secret
         ports:
         - containerPort: 80
-
----
-apiVersion: v1
-kind: Service
-metadata: 
-  name: django-app
-spec:
-  selector:
-    app: django-app
-  ports:
-    - port: 80
-      targetPort: 80
-  type: ClusterIP

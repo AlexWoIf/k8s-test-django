@@ -105,18 +105,25 @@ minikube image build ./backend_main_django/ -t jango_app
 minikube image ls
 ```
 
-Если хотите использовать другой image, откройте файл `kubernetes/django-service.yml` и измените значение `image: docker.io/library/jango_app:latest` на адрес нужного на docker hub или где-либо еще (возможно придется удалить или закомментировать строку `imagePullPolicy: Never`).
+Если хотите использовать другой image, откройте файл `kubernetes/deployment-django-ver1.yaml` и измените значение `image: docker.io/library/jango_app:latest` на адрес нужного на docker hub или где-либо еще (возможно придется удалить или закомментировать строку `imagePullPolicy: Never`).
 
-Откройте `cubernetes/configmap.yml` и укажите нужные значения для Django. Назначение переменных описано в разделе [Переменные окружения](#environments)
+Откройте `kubernetes/environment.yaml` и укажите нужные значения для переменных окружения. Назначение переменных описано в разделе [Переменные окружения](#environments)
 
-Регистрируем конфиг и поднимаем Django:
+Регистрируем переменные конфигурации и секреты:
 
 ```sh
-kubectl apply -f kubernetes/configmap.yml
+kubectl apply -f kubernetes/environment.yaml
+```
+
+Запускаем Deployment django:
+```sh
 kubectl apply -f kubernetes/deployment-django-ver1.yaml
 ```
 
-Обратите внимание что в одном файле `kubernetes/deployment-django-ver1.yaml` создаётся сразу Deployment и Service для нашего приложения.
+Запускаем Service django:
+```sh
+kubectl apply -f kubernetes/service_django.yaml
+```
 
 Для доступа с использованием доменного имени у вас должен быть запущен любой [ингресс контроллер](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/). Например для запуска ингресс контроллера [Contour](https://projectcontour.io/) команда запуска будет выглядеть так:
 
