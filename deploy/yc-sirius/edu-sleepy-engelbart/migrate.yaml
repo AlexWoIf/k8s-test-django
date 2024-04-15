@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: django-app
+        image: alexwoif/django-app:latest
+        envFrom:
+        - configMapRef:
+            name: django-config
+        - secretRef:
+            name: django-secret
+        - secretRef:
+            name: postgres
+        command: ['python', 'manage.py', 'migrate', '--noinput']

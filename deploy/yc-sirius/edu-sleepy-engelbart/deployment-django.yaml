@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app
+spec:
+  selector:
+    matchLabels:
+      app: django-app
+  template:
+    metadata:
+      labels:
+        app: django-app
+    spec:
+      containers:
+      - name: django-app
+        image: alexwoif/django-app:latest
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: dsn
+        envFrom:
+        - configMapRef:
+            name: django-config
+        - secretRef:
+            name: django-secret
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: yandex-root-ca-crt-vol
+          mountPath: /root/.postgresql/
+      volumes:
+      - name: yandex-root-ca-crt-vol
+        secret:
+          secretName: yandex-root-ca-crt-secret
+          defaultMode: 384
