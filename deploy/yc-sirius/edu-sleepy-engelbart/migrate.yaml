@@ -15,6 +15,10 @@ spec:
             name: django-config
         - secretRef:
             name: django-secret
-        - secretRef:
-            name: postgres
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: dsn
         command: ['python', 'manage.py', 'migrate', '--noinput']

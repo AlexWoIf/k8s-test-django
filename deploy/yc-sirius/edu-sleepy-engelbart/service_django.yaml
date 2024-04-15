@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata: 
-  name: service-nginx
+  name: service-django
 spec:
   selector:
-    app: nginx
+    app: django-app
   ports:
     - port: 80
       targetPort: 80
