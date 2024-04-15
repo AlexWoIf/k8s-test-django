@@ -38,7 +38,7 @@ minikube image ls
 
 Если хотите использовать другой image, откройте файл `kubernetes/deployment-django-ver1.yaml` и измените значение `image: docker.io/library/jango_app:latest` на адрес нужного на docker hub или где-либо еще (возможно придется удалить или закомментировать строку `imagePullPolicy: Never`).
 
-Откройте `kubernetes/environment.yaml` и укажите нужные значения для переменных окружения. Назначение переменных описано в разделе [Переменные окружения](#environments)
+Откройте `kubernetes/environment.yaml` и укажите нужные значения для переменных окружения. Назначение переменных описано в разделе [Переменные окружения](../README.md#environments)
 
 Регистрируем переменные конфигурации и секреты:
 

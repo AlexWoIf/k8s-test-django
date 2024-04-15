@@ -70,6 +70,8 @@ kubectl --namespace=<выделенный Вам namespace> apply -f deployment-
 kubectl apply -f kubernetes/service_django.yaml
 ```
 
+Поздравляем! Приложение должно быть доступно по [выданному Вам адресу](https://edu-sleepy-engelbart.sirius-k8s.dvmn.org)
+
 ## Обновление версии приложения
 
 Для запуска другой версии приложения, укажите в манифесте `deployment-django.yaml` образ приложения на dockerhub с нужным Вам тэгом. Затем примените внесенные изменения командой:
