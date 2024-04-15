@@ -16,4 +16,11 @@ spec:
     #     name: django-config
     - secretRef:
         name: postgres
-
+    volumeMounts:
+    - name: yandex-root-ca-crt-vol
+      mountPath: /root/.postgresql/
+  volumes:
+  - name: yandex-root-ca-crt-vol
+    secret:
+      secretName: yandex-root-ca-crt-secret
+      defaultMode: 384
