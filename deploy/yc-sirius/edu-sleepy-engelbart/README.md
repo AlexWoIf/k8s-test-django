@@ -15,7 +15,8 @@ kubectl cluster-info
 
 ## Выделенные ресурсы
 
-Для развертывания тестового сайта джанго в Яндекс-облаке Ваь должны быть выделены:
+Для развертывания тестового сайта джанго в Яндекс-облаке Вам должны быть выделены:
+(https://sirius-env-registry.website.yandexcloud.net/edu-sleepy-engelbart.html)
 
 - домен вида `edu-sleepy-engelbart.sirius-k8s.dvmn.org`
 - отдельный namespace вида `edu-sleepy-engelbart`
